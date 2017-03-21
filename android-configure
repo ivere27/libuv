@@ -6,15 +6,18 @@ $1/build/tools/make-standalone-toolchain.sh \
     --toolchain=arm-linux-androideabi-4.9 \
     --arch=arm \
     --install-dir=$TOOLCHAIN \
-    --platform=android-21
+    --platform=android-16 \
+    --force
 export PATH=$TOOLCHAIN/bin:$PATH
 export AR=arm-linux-androideabi-ar
 export CC=arm-linux-androideabi-gcc
 export CXX=arm-linux-androideabi-g++
 export LINK=arm-linux-androideabi-g++
 export PLATFORM=android
+export LDFLAGS="-shared"
 
 if [[ $2 == 'gyp' ]]
   then
-    ./gyp_uv.py -Dtarget_arch=arm -DOS=android -f make-android
+    ./gyp_uv.py -Dtarget_arch=arm -DOS=android -Duv_library=shared_library -f make-android
+    make V=1 -C out -j4
 fi
