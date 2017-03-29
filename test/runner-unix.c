@@ -66,7 +66,7 @@ int process_start(char* name, char* part, process_info_t* p, int is_helper) {
   int n;
   pid_t pid;
 
-  stdout_file = tmpfile();
+  stdout_file = fopen("/data/local/tmp/stdout", "a+"); //tmpfile();
   if (!stdout_file) {
     perror("tmpfile");
     return -1;
