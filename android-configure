@@ -14,11 +14,11 @@ export CC=arm-linux-androideabi-gcc
 export CXX=arm-linux-androideabi-g++
 export LINK=arm-linux-androideabi-g++
 export PLATFORM=android
-#export LDFLAGS="-shared"
+export LDFLAGS="-shared"
 
 if [[ $2 == 'gyp' ]]
   then
-#shared_library
-    ./gyp_uv.py -Dtarget_arch=arm -DOS=android -Duv_library=static_library -f make-android
+#static_library
+    ./gyp_uv.py -Dtarget_arch=arm -DOS=android -Duv_library=shared_library -f make-android
     make V=1 -C out -j4
 fi
