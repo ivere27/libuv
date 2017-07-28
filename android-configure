@@ -19,5 +19,14 @@ export CFLAGS="-D__ANDROID_API__=$API"
 
 if [[ $2 == 'gyp' ]]
   then
-    ./gyp_uv.py -Dtarget_arch=arm -DOS=android -f make-android
+    ./gyp_uv.py -Dtarget_arch=arm -DOS=android -Duv_library=shared_library -f make-android
+    #./gyp_uv.py -Dtarget_arch=arm -DOS=android -f make-android
+    make V=1 -C out -j4
+
+    # to test in adb shell
+    # $ cd /data/local/tmp
+    # $ LD_LIBRARY_PATH=. ./run-tests
+    adb push out/Debug/run-tests /data/local/tmp/
+    adb push out/Debug/run-benchmarks /data/local/tmp/
+    adb push out/Debug/obj.target/libuv.so /data/local/tmp/
 fi

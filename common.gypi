@@ -42,6 +42,11 @@
             'cflags': [ '-fPIE' ],
             'ldflags': [ '-fPIE', '-pie' ]
           }]
+        ],
+        'target_conditions': [
+          ['OS == "android" and _type=="shared_library"', {
+            'ldflags': [ '-shared']
+          }],
         ]
       },
       'Release': {
